@@ -52,11 +52,11 @@ Each level is contained within its own folder. Start from `level-1` and work you
 ---
 
 ## Team Members
-*   **Member 1 (Lead)** - [Your Name]
-*   **Member 2** - [Name]
-*   **Member 3** - [Name]
-*   **Member 4** - [Name]
-*   **Member 5** - [Name]
+*   **Member 1 (Lead)** - Vinnet Shinde
+*   **Member 2** - Prathamkumar Kalidas Solanki
+*   **Member 3** - Manush Patel
+*   **Member 4** - Parth Patel
+*   **Member 5** - Mahi Shah
 
 ---
 
