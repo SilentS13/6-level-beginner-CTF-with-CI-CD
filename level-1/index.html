@@ -7,18 +7,18 @@
 
     <style>
         body{
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: Arial, sans-serif;
             text-align:center;
             padding:50px;
             background:#f0f0f0;
         }
 
         .container{
-            background:white;
+            background:#fff;
             padding:30px;
             border-radius:10px;
             display:inline-block;
-            box-shadow:0 5px 15px rgba(0,0,0,.15);
+            box-shadow:0 4px 10px rgba(0,0,0,.1);
             width:500px;
         }
 
@@ -26,20 +26,16 @@
             width:80%;
             padding:10px;
             margin-top:20px;
-            border:1px solid #ccc;
-            border-radius:5px;
-            font-size:16px;
         }
 
         button{
             margin-top:15px;
             padding:10px 20px;
-            border:none;
             background:#2ecc71;
             color:white;
-            font-size:16px;
-            border-radius:5px;
+            border:none;
             cursor:pointer;
+            border-radius:5px;
         }
 
         button:hover{
@@ -47,21 +43,15 @@
         }
 
         #resultMsg{
-            margin-top:20px;
+            margin-top:15px;
             font-weight:bold;
-            font-size:18px;
         }
 
-        a{
+        .back{
             display:inline-block;
             margin-top:25px;
             text-decoration:none;
             color:#3498db;
-            font-weight:bold;
-        }
-
-        a:hover{
-            text-decoration:underline;
         }
     </style>
 </head>
@@ -80,24 +70,22 @@
 
     <hr>
 
-    <h2>🏁 Submit Your Flag</h2>
+    <h2>🏁 Submit Flag</h2>
 
     <input
         type="text"
         id="flagInput"
-        placeholder="Enter Flag (CTF{...})">
+        placeholder="Enter Flag">
 
     <br>
 
     <button onclick="submitFlag()">
-        Submit Flag
+        Submit
     </button>
 
     <p id="resultMsg"></p>
 
-    <a href="../index.html">
-        ⬅ Back to Dashboard
-    </a>
+    <a class="back" href="../index.html">⬅ Back to Dashboard</a>
 
 </div>
 
@@ -107,25 +95,25 @@ function submitFlag(){
 
     const correctFlag="CTF{inspect_element_is_step_one}";
 
-    const userFlag=document.getElementById("flagInput").value.trim();
+    const entered=document.getElementById("flagInput").value.trim();
 
     const result=document.getElementById("resultMsg");
 
-    if(userFlag===correctFlag){
+    if(entered===correctFlag){
 
         localStorage.setItem("solved-level-1","true");
 
-        result.style.color="#2ecc71";
+        result.style.color="green";
 
-        result.innerHTML="✅ Correct! Level 1 Completed.";
+        result.innerHTML="✅ Correct! Level 1 Solved.";
 
     }
 
     else{
 
-        result.style.color="#e74c3c";
+        result.style.color="red";
 
-        result.innerHTML="❌ Incorrect Flag. Try Again.";
+        result.innerHTML="❌ Incorrect Flag.";
 
     }
 
