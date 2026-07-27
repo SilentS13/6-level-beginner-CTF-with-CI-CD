@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Security CTF - Home</title>
+    <title>Web Security CTF - Home & Scoreboard</title>
     <style>
-        body { font-family: sans-serif; text-align: center; padding: 50px; background-color: #fafafa; color: #333; }
-        .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-        h1 { color: #2c3e50; margin-bottom: 30px; }
+        body { font-family: sans-serif; padding: 50px; background-color: #fafafa; color: #333; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        h1, h2 { color: #2c3e50; }
         .level-list { list-style: none; padding: 0; }
         .level-item { margin: 15px 0; }
         .level-link { 
@@ -19,26 +20,163 @@
             display: block;
             transition: background 0.3s ease;
             font-weight: bold;
+            text-align: center;
         }
         .level-link:hover { background: #2980b9; }
         .level-link.server { background: #9b59b6; }
         .level-link.server:hover { background: #8e44ad; }
+        
+        /* Submission Styles */
+        .submit-section { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+        .input-group { display: flex; gap: 10px; }
+        input[type="text"] { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 6px; }
+        button { padding: 10px 20px; background: #2ecc71; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #27ae60; }
+        
+        /* Status Tracker */
+        .status-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .status-table th, .status-table td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+        .status-table th { background: #f4f4f4; }
+        .badge { padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 0.85em; }
+        .badge.unsolved { background: #e74c3c; color: white; }
+        .badge.solved { background: #2ecc71; color: white; }
+        
         .note { font-size: 0.9em; color: #7f8c8d; margin-top: 20px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Web Security CTF</h1>
-        <p>Select a level to begin your hacking journey!</p>
-        <ul class="level-list">
-            <li class="level-item"><a href="level-1/index.html" class="level-link">Level 1: The Hidden Path</a></li>
-            <li class="level-item"><a href="level-2/index.html" class="level-link">Level 2: The Secret List</a></li>
-            <li class="level-item"><a href="level-3/index.html" class="level-link">Level 3: The Cookie Jar</a></li>
-            <li class="level-item"><a href="level-4/index.html" class="level-link">Level 4: The Script Kiddie</a></li>
-            <li class="level-item"><a href="level-5/index.html" class="level-link">Level 5: The Encoded Message</a></li>
-            <li class="level-item"><a href="#" class="level-link server" onclick="alert('Level 6 requires a Python server. See README for instructions to run it locally!')">Level 6: The Command Room (Local Only)</a></li>
-        </ul>
-        <p class="note">Note: Level 6 must be run locally using Python/Flask.</p>
+    <div class="grid">
+        <!-- Challenge Navigation -->
+        <div class="container">
+            <h1>Web Security CTF</h1>
+            <p>Select a level to begin your hacking journey!</p>
+            <ul class="level-list">
+                <li class="level-item"><a href="level-1/index.html" target="_blank" class="level-link">Level 1: The Hidden Path</a></li>
+                <li class="level-item"><a href="level-2/index.html" target="_blank" class="level-link">Level 2: The Secret List</a></li>
+                <li class="level-item"><a href="level-3/index.html" target="_blank" class="level-link">Level 3: The Cookie Jar</a></li>
+                <li class="level-item"><a href="level-4/index.html" target="_blank" class="level-link">Level 4: The Script Kiddie</a></li>
+                <li class="level-item"><a href="level-5/index.html" target="_blank" class="level-link">Level 5: The Encoded Message</a></li>
+                <li class="level-item"><a href="#" class="level-link server" onclick="alert('Level 6 requires a Python server. See README for instructions to run it locally!')">Level 6: The Command Room (Local Only)</a></li>
+            </ul>
+            <p class="note">Note: Open levels in new tabs, find the flags, and submit them on the right!</p>
+        </div>
+
+        <!-- Flag Submission & Scoreboard -->
+        <div class="container">
+            <h2>Flag Submission Portal</h2>
+            <p>Enter your flags here to track your progress locally in your browser.</p>
+            
+            <div class="submit-section">
+                <div class="input-group">
+                    <input type="text" id="flagInput" placeholder="Enter Flag (e.g., CTF{...})">
+                    <button onclick="submitFlag()">Submit</button>
+                </div>
+                <div id="resultMsg" style="font-weight: bold;"></div>
+            </div>
+
+            <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
+
+            <h3>Your Progress</h3>
+            <table class="status-table">
+                <thead>
+                    <tr>
+                        <th>Level</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Level 1: The Hidden Path</td>
+                        <td><span id="status-1" class="badge unsolved">Unsolved</span></td>
+                    </tr>
+                    <tr>
+                        <td>Level 2: The Secret List</td>
+                        <td><span id="status-2" class="badge unsolved">Unsolved</span></td>
+                    </tr>
+                    <tr>
+                        <td>Level 3: The Cookie Jar</td>
+                        <td><span id="status-3" class="badge unsolved">Unsolved</span></td>
+                    </tr>
+                    <tr>
+                        <td>Level 4: The Script Kiddie</td>
+                        <td><span id="status-4" class="badge unsolved">Unsolved</span></td>
+                    </tr>
+                    <tr>
+                        <td>Level 5: The Encoded Message</td>
+                        <td><span id="status-5" class="badge unsolved">Unsolved</span></td>
+                    </tr>
+                    <tr>
+                        <td>Level 6: The Command Room</td>
+                        <td><span id="status-6" class="badge unsolved">Unsolved</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button onclick="resetProgress()" style="background: #95a5a6; margin-top: 15px;">Reset Progress</button>
+        </div>
     </div>
+
+    <script>
+        // Correct Flags
+        const flags = {
+            1: "CTF{inspect_element_is_step_one}",
+            2: "CTF{robots_keep_secrets_too}",
+            3: "CTF{cookies_are_not_just_for_eating}",
+            4: "CTF{frontend_is_not_a_wall}",
+            5: "CTF{base64_is_everywhere}",
+            6: "CTF{the_final_command_executed}"
+        };
+
+        // Load progress from LocalStorage
+        function updateUI() {
+            for (let i = 1; i <= 6; i++) {
+                const solved = localStorage.getItem(`solved-level-${i}`);
+                const badge = document.getElementById(`status-${i}`);
+                if (solved === "true") {
+                    badge.className = "badge solved";
+                    badge.innerText = "Solved";
+                } else {
+                    badge.className = "badge unsolved";
+                    badge.innerText = "Unsolved";
+                }
+            }
+        }
+
+        function submitFlag() {
+            const input = document.getElementById('flagInput').value.trim();
+            const resultMsg = document.getElementById('resultMsg');
+            let found = false;
+
+            for (let i = 1; i <= 6; i++) {
+                if (flags[i] === input) {
+                    localStorage.setItem(`solved-level-${i}`, "true");
+                    resultMsg.style.color = "#2ecc71";
+                    resultMsg.innerText = `Correct! You solved Level ${i}!`;
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                resultMsg.style.color = "#e74c3c";
+                resultMsg.innerText = "Incorrect flag. Try again!";
+            }
+
+            document.getElementById('flagInput').value = '';
+            updateUI();
+        }
+
+        function resetProgress() {
+            if (confirm("Are you sure you want to reset your progress?")) {
+                for (let i = 1; i <= 6; i++) {
+                    localStorage.removeItem(`solved-level-${i}`);
+                }
+                updateUI();
+                document.getElementById('resultMsg').innerText = '';
+            }
+        }
+
+        // Initialize UI
+        updateUI();
+    </script>
 </body>
 </html>
