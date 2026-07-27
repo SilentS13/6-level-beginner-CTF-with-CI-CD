@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Security CTF - Home</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 50px; background-color: #fafafa; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        h1 { color: #2c3e50; margin-bottom: 30px; }
+        .level-list { list-style: none; padding: 0; }
+        .level-item { margin: 15px 0; }
+        .level-link { 
+            text-decoration: none; 
+            color: white; 
+            background: #3498db; 
+            padding: 12px 25px; 
+            border-radius: 8px; 
+            display: block;
+            transition: background 0.3s ease;
+            font-weight: bold;
+        }
+        .level-link:hover { background: #2980b9; }
+        .level-link.server { background: #9b59b6; }
+        .level-link.server:hover { background: #8e44ad; }
+        .note { font-size: 0.9em; color: #7f8c8d; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Web Security CTF</h1>
+        <p>Select a level to begin your hacking journey!</p>
+        <ul class="level-list">
+            <li class="level-item"><a href="level-1/index.html" class="level-link">Level 1: The Hidden Path</a></li>
+            <li class="level-item"><a href="level-2/index.html" class="level-link">Level 2: The Secret List</a></li>
+            <li class="level-item"><a href="level-3/index.html" class="level-link">Level 3: The Cookie Jar</a></li>
+            <li class="level-item"><a href="level-4/index.html" class="level-link">Level 4: The Script Kiddie</a></li>
+            <li class="level-item"><a href="level-5/index.html" class="level-link">Level 5: The Encoded Message</a></li>
+            <li class="level-item"><a href="#" class="level-link server" onclick="alert('Level 6 requires a Python server. See README for instructions to run it locally!')">Level 6: The Command Room (Local Only)</a></li>
+        </ul>
+        <p class="note">Note: Level 6 must be run locally using Python/Flask.</p>
+    </div>
+</body>
+</html>
