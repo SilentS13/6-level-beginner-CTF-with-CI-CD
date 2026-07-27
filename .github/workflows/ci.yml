@@ -2,14 +2,12 @@ name: CyberQuest CTF CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
-  build-and-test:
+  validate:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,7 +19,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: 📦 Install Dependencies
+      - name: 📦 Install Python Dependencies
         run: |
           if [ -f level-6/requirements.txt ]; then
             pip install -r level-6/requirements.txt
@@ -31,18 +29,24 @@ jobs:
         run: |
           python -m py_compile level-6/app.py
 
-      - name: 📂 Verify Project Structure
+      - name: 📂 Verify Required Levels
         run: |
-          test -d level-1
-          test -d level-2
-          test -d level-3
-          test -d level-4
-          test -d level-5
-          test -d level-6
+          for level in level-{1..6}; do
+            test -d "$level"
+            echo "✔ Found $level"
+          done
 
-      - name: 🌐 Check HTML Files
+      - name: 🌐 Verify HTML Files
         run: |
           find . -name "*.html"
 
-      - name: 🎉 Success
-        run: echo "All checks passed successfully!"
+      - name: 📄 Verify README Exists
+        run: |
+          test -f README.md
+
+      - name: 📄 Verify CONTRIBUTING Guide
+        run: |
+          test -f CONTRIBUTING.md
+
+      - name: 🎉 Build Successful
+        run: echo "CyberQuest CTF validation completed successfully!"
