@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 4: The Script Kiddie</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 50px; background-color: #fce4ec; }
+        .container { background: white; padding: 20px; border-radius: 8px; display: inline-block; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+        button:disabled { cursor: not-allowed; opacity: 0.5; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Level 4: The Script Kiddie</h1>
+        <p>The button below is disabled. Can you find a way to click it?</p>
+        <form onsubmit="alert('Flag: CTF{frontend_is_not_a_wall}'); return false;">
+            <button type="submit" id="submitBtn" disabled>Claim Flag</button>
+        </form>
+    </div>
+</body>
+</html>

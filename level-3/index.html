@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 3: The Cookie Jar</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 50px; background-color: #fff9c4; }
+        .container { background: white; padding: 20px; border-radius: 8px; display: inline-block; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Level 3: The Cookie Jar</h1>
+        <p>Websites often store small pieces of data in your browser called "cookies".</p>
+        <p>Can you find the delicious flag hidden in the jar?</p>
+    </div>
+    <script>
+        document.cookie = "flag=CTF{cookies_are_not_just_for_eating}; path=/";
+        document.cookie = "hint=Check the 'Application' or 'Storage' tab in DevTools; path=/";
+    </script>
+</body>
+</html>
